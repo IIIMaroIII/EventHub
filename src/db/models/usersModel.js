@@ -1,25 +1,47 @@
 import { model, Schema } from 'mongoose';
+import { CONSTANTS } from '../../constants/constants.js';
 
 const usersSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      validate: {
+        validator: (v) => CONSTANTS.regex.fullName.test(v),
+        message: ({ value }) =>
+          `"${value}" ${CONSTANTS.MESSAGES.ERRORS.FULL_NAME}`,
+      },
     },
     email: {
       type: String,
       required: true,
+      validate: {
+        validator: (v) => CONSTANTS.regex.email.test(v),
+        message: ({ value }) => `"${value}" ${CONSTANTS.MESSAGES.ERRORS.EMAIL}`,
+      },
+    },
+    birthDate: {
+      type: String,
+      validate: {
+        validator: (v) => CONSTANTS.regex.birthDate.test(v),
+        message: ({ value }) =>
+          `"${value}" ${CONSTANTS.MESSAGES.ERRORS.BIRTH_DATE}`,
+      },
     },
     survey: {
       type: String,
-      required: true,
       enum: ['Social media', 'Friends', 'Found myself'],
     },
+    password: {
+      type: String,
+      required: true,
+      validate: {
+        validator: (v) => CONSTANTS.regex.password.test(v),
+        message: ({ value }) =>
+          `${value} ${CONSTANTS.MESSAGES.ERRORS.PASSWORD}`,
+      },
+    },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  },
+  { timestamps: true, versionKey: false },
 );
 
-export const UsersCollection = model('users', usersSchema);
+export const usersModel = model('users', usersSchema);

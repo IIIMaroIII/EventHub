@@ -1,42 +1,31 @@
 import express from 'express';
-import pino from 'pino-http';
 import cors from 'cors';
+
 import { env } from './utils/env.js';
-import { ENV } from './constants/constants.js';
+import { pinoHttp } from 'pino-http';
+import { CONSTANTS } from './constants/constants.js';
+import { errorHandler } from './middlewares/errorHandler.js';
+import { notFound } from './middlewares/notFound.js';
+
+const PORT = env(CONSTANTS.SERVER.PORT);
 
 export const startServer = () => {
   const app = express();
 
-  app.use(
-    pino({
-      transport: {
-        target: 'pino-pretty',
-      },
-    }),
-  );
-
-  app.use(cors());
+  app.use(pinoHttp(CONSTANTS.PINO_HTTP_OPTIONS));
   app.use(express.json());
+  app.use(cors());
 
-  app.get('/', (req, res) => {
+  app.get('/', async (req, res, next) => {
     res.json({
-      message: 'Hello world',
+      message: 'Hello World',
     });
   });
 
-  app.use('*', (req, res, next) => {
-    res.status(404).json({
-      message: 'The route not found',
-    });
-  });
+  app.use('*', notFound);
+  app.use(errorHandler);
 
-  app.use((err, req, res, next) => {
-    res
-      .status(500)
-      .json({ message: 'Something went wrong', error: err.message });
-  });
-
-  app.listen(env(ENV.PORT), () => {
-    console.log(`Server is running on port ${env(ENV.PORT)}`);
+  app.listen(PORT, () => {
+    console.log(`Server is on port ${PORT}`);
   });
 };
