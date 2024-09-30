@@ -33,7 +33,7 @@ const MESSAGES = {
     EVENT_DATE:
       'Event date must be a valid ISO 8601 date format, like 2024-11-18T18:00:00Z',
     REQUIRED: 'must be required',
-    MIN: 'should have the minimum length of',
+    MIN: 'should have a minimum length of',
     MAX: 'should have a maximum length of',
     BASE: 'should be a type of',
     EMPTY: 'cannot be empty',
