@@ -6,6 +6,7 @@ import { pinoHttp } from 'pino-http';
 import { CONSTANTS } from './constants/constants.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFound } from './middlewares/notFound.js';
+import { apiRouter } from './routers/apiRouter.js';
 
 const PORT = env(CONSTANTS.SERVER.PORT);
 
@@ -16,11 +17,7 @@ export const startServer = () => {
   app.use(express.json());
   app.use(cors());
 
-  app.get('/', async (req, res, next) => {
-    res.json({
-      message: 'Hello World',
-    });
-  });
+  app.use('/api/v1', apiRouter);
 
   app.use('*', notFound);
   app.use(errorHandler);

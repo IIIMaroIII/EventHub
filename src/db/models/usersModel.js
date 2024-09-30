@@ -1,10 +1,11 @@
 import { model, Schema } from 'mongoose';
 import { CONSTANTS } from '../../constants/constants.js';
 
-const usersSchema = new Schema(
+const userSchema = new Schema(
   {
     name: {
       type: String,
+      trim: true,
       validate: {
         validator: (v) => CONSTANTS.regex.fullName.test(v),
         message: ({ value }) =>
@@ -13,6 +14,7 @@ const usersSchema = new Schema(
     },
     email: {
       type: String,
+      trim: true,
       required: true,
       validate: {
         validator: (v) => CONSTANTS.regex.email.test(v),
@@ -44,4 +46,4 @@ const usersSchema = new Schema(
   { timestamps: true, versionKey: false },
 );
 
-export const usersModel = model('users', usersSchema);
+export const usersModel = model('users', userSchema);
