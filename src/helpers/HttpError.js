@@ -7,8 +7,13 @@ const errorMessages = {
   500: 'Server error',
 };
 
-export const HttpError = (status = 500, message = errorMessages[status]) => {
+export const HttpError = (
+  status = 500,
+  message = errorMessages[status],
+  data = null,
+) => {
   const err = new Error(message);
   err.status = status;
+  err.data = data;
   return err;
 };

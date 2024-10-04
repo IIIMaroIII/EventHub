@@ -38,6 +38,7 @@ const MESSAGES = {
     BASE: 'should be a type of',
     EMPTY: 'cannot be empty',
     DATE_ISO: 'must be in ISO format (YYYY-MM-DDTHH:mm:ss.sssZ)',
+    NOT_FOUND_BY_ID: 'is not found by provided id',
   },
   SUCCESS: {
     FETCHED: 'You have successfully fetched your',

@@ -1,4 +1,6 @@
+import { CONSTANTS } from '../constants/constants.js';
 import { eventsModel } from '../db/models/eventsModel.js';
+import { HttpError } from '../helpers/HttpError.js';
 
 const getAllEvents = async () => {
   const result = await eventsModel.find();
@@ -14,6 +16,12 @@ const addEvent = async (data) => {
 
 const findEventById = async (eventId) => {
   const result = await eventsModel.findById(eventId);
+
+  if (!result)
+    throw HttpError(
+      404,
+      `The event ${CONSTANTS.MESSAGES.ERRORS.NOT_FOUND_BY_ID} ${eventId}`,
+    );
 
   return result;
 };

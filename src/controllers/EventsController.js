@@ -12,6 +12,20 @@ const getAllEvents = async (req, res, next) => {
   });
 };
 
+const findEventById = async (req, res, next) => {
+  const { id } = req.params;
+
+  const data = await EventsService.findEventById(id);
+
+  res.json(
+    CreateResponseObj(
+      200,
+      `${CONSTANTS.MESSAGES.SUCCESS.FETCHED} event by ID`,
+      data,
+    ),
+  );
+};
+
 const addEvent = async (req, res, next) => {
   const data = req.body;
   const result = await EventsService.addEvent(data);
@@ -27,11 +41,9 @@ const addEvent = async (req, res, next) => {
     );
 };
 
-const findEventById = async (req, res, next) => {};
+const updateEvent = async (req, res, next) => {};
 
 const deleteEventById = async (req, res, next) => {};
-
-const updateEvent = async (req, res, next) => {};
 
 export const EventsController = {
   getAllEvents,

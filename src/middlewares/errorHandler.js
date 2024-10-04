@@ -1,8 +1,11 @@
-export const errorHandler = (err, req, res, next) => {
-  const { status = 500, message = 'Server error' } = err;
+import { HttpError } from '../helpers/HttpError.js';
 
-  res.status(status).json({
-    status,
-    message,
-  });
+export const errorHandler = (err, req, res, next) => {
+  if (err instanceof Error) {
+    const { status, message } = err;
+    res.status(status).json({ status, message });
+    return;
+  }
+
+  res.status(500).json({ status: 500, message: 'Server error', data: err });
 };
