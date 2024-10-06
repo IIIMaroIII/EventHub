@@ -18,7 +18,7 @@ const regex = {
   birthDate: /^\d{4}-\d{2}-\d{2}$/,
   password:
     /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!#$%^&*<>?/\|[\]{}"`;:]).{8,}$/,
-  eventDate: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/,
+  eventDate: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/,
 };
 
 const MESSAGES = {
@@ -31,7 +31,7 @@ const MESSAGES = {
       'is not a valid password! Password has contain: at least one uppercase letter, one lowercase letter, one digit, one special character from: !#$%^&*<>?/\\|[]{}`";:, and must be at least 8 character long. For example: Password1!',
     MONGOOSE_ID: 'is not a valid mongo ObjectId',
     EVENT_DATE:
-      'Event date must be a valid ISO 8601 date format, like 2024-11-18T18:00:00Z',
+      'Event date must be a valid ISO 8601 date format, like 2024-10-05T23:34:22.599Z',
     REQUIRED: 'must be required',
     MIN: 'should have a minimum length of',
     MAX: 'should have a maximum length of',
@@ -43,6 +43,8 @@ const MESSAGES = {
   SUCCESS: {
     FETCHED: 'You have successfully fetched your',
     CREATED: 'You have successfully created the',
+    UPDATE: 'You have successfully updated the',
+    DELETE: 'You have successfully deleted the',
   },
 };
 

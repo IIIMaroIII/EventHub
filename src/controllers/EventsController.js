@@ -1,5 +1,6 @@
 import { CONSTANTS } from '../constants/constants.js';
 import CreateResponseObj from '../helpers/CreateResponseObj.js';
+import { HttpError } from '../helpers/HttpError.js';
 import { EventsService } from '../services/eventsService.js';
 
 const getAllEvents = async (req, res, next) => {
@@ -41,14 +42,68 @@ const addEvent = async (req, res, next) => {
     );
 };
 
-const updateEvent = async (req, res, next) => {};
+const upsertEvent = async (req, res, next) => {
+  const { id } = req.params;
 
-const deleteEventById = async (req, res, next) => {};
+  const result = await EventsService.upsertEvent({ _id: id }, req.body, {
+    upsert: true,
+  });
+
+  if (!result) throw HttpError(500);
+
+  const status = result.isNew ? 201 : 200;
+  const message = result.isNew
+    ? `${CONSTANTS.MESSAGES.SUCCESS.CREATED} event with id ${id}`
+    : `${CONSTANTS.MESSAGES.SUCCESS.UPDATE} event by id ${id}`;
+
+  res.status(status).json(CreateResponseObj(status, message, result.data));
+};
+
+const updateEvent = async (req, res, next) => {
+  const { id } = req.params;
+
+  const result = await EventsService.upsertEvent({ _id: id }, req.body);
+
+  if (!result)
+    throw HttpError(
+      404,
+      `The event ${CONSTANTS.MESSAGES.ERRORS.NOT_FOUND_BY_ID} ${id}`,
+    );
+
+  res.json(
+    CreateResponseObj(
+      200,
+      `${CONSTANTS.MESSAGES.SUCCESS.UPDATE} event with id ${id}`,
+      result.data,
+    ),
+  );
+};
+
+const deleteEvent = async (req, res, next) => {
+  const { id } = req.params;
+
+  const result = await EventsService.deleteEvent(id);
+
+  if (!result)
+    throw HttpError(
+      404,
+      `The event ${CONSTANTS.MESSAGES.ERRORS.NOT_FOUND_BY_ID} ${id}`,
+    );
+
+  res.json(
+    CreateResponseObj(
+      200,
+      `${CONSTANTS.MESSAGES.SUCCESS.DELETE} event with id ${id}`,
+      result,
+    ),
+  );
+};
 
 export const EventsController = {
   getAllEvents,
   addEvent,
   findEventById,
-  deleteEventById,
+  deleteEvent,
   updateEvent,
+  upsertEvent,
 };

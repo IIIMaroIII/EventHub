@@ -26,14 +26,29 @@ const findEventById = async (eventId) => {
   return result;
 };
 
-const deleteEventById = async () => {};
+const upsertEvent = async (filter, data, options = {}) => {
+  const result = await eventsModel.findOneAndUpdate(filter, data, {
+    new: true,
+    includeResultMetadata: true,
+    ...options,
+  });
 
-const updateEvent = async () => {};
+  if (!result || !result.value) return null;
+
+  console.log(result);
+
+  return {
+    data: result.value,
+    isNew: !result?.lastErrorObject?.updatedExisting,
+  };
+};
+
+const deleteEvent = async (id) => eventsModel.findOneAndDelete(id);
 
 export const EventsService = {
   getAllEvents,
   addEvent,
   findEventById,
-  deleteEventById,
-  updateEvent,
+  deleteEvent,
+  upsertEvent,
 };

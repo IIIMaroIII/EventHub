@@ -13,7 +13,12 @@ const eventSchema = new Schema(
     },
     eventDate: {
       type: Date,
-      default: new Date(),
+      default: new Date().toISOString(),
+      validate: {
+        validator: (v) => CONSTANTS.regex.eventDate.test(v.toISOString()),
+        message: ({ value }) =>
+          `${value} ${CONSTANTS.MESSAGES.ERRORS.EVENT_DATE}`,
+      },
     },
     participationsID: [
       {
@@ -21,7 +26,8 @@ const eventSchema = new Schema(
         ref: 'Users',
         default: [],
         validate: {
-          validator: (v) => mongoose.isValidObjectId(v),
+          validator: (v) =>
+            Array.isArray(v) && v.every((id) => mongoose.isValidObjectId(id)),
           message: ({ value }) =>
             `${value} ${CONSTANTS.MESSAGES.ERRORS.MONGOOSE_ID}`,
         },
