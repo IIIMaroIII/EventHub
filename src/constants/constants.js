@@ -39,6 +39,12 @@ const MESSAGES = {
     EMPTY: 'cannot be empty',
     DATE_ISO: 'must be in ISO format (YYYY-MM-DDTHH:mm:ss.sssZ)',
     NOT_FOUND_BY_ID: 'is not found by provided id',
+    STRING: 'must be the type of string',
+    NUMBER: 'must be the type of number',
+    ARRAY: 'It must be only the type of Array',
+    ARRAY_INCLUDES_VALID_MONGO_ID:
+      'The array must include only valid MongoObjectId values!',
+    UNIQUE: 'It must be the unique value in the collection',
   },
   SUCCESS: {
     FETCHED: 'You have successfully fetched your',

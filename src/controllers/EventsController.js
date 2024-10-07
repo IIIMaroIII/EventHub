@@ -49,6 +49,8 @@ const upsertEvent = async (req, res, next) => {
     upsert: true,
   });
 
+  console.log(result);
+
   if (!result) throw HttpError(500);
 
   const status = result.isNew ? 201 : 200;

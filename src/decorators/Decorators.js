@@ -9,11 +9,15 @@ const ctrlWrapper = (controller) => async (req, res, next) => {
 };
 
 const validateBody = (schema) => async (req, res, next) => {
-  const { error } = schema.validate(req.body);
-  if (error) {
-    return next(HttpError(400, error.message));
+  try {
+    await schema.validateAsync(req.body, {
+      abortEarly: false,
+    });
+
+    next();
+  } catch (error) {
+    next(HttpError(400, error.message, error.details));
   }
-  next();
 };
 
 export default {

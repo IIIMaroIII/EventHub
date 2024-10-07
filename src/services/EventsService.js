@@ -28,14 +28,12 @@ const findEventById = async (eventId) => {
 
 const upsertEvent = async (filter, data, options = {}) => {
   const result = await eventsModel.findOneAndUpdate(filter, data, {
-    new: true,
     includeResultMetadata: true,
     ...options,
   });
+  console.log(result);
 
   if (!result || !result.value) return null;
-
-  console.log(result);
 
   return {
     data: result.value,
