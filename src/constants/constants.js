@@ -11,6 +11,8 @@ const PINO_HTTP_OPTIONS = {
   },
 };
 
+export const SORT_ORDER_LIST = ['asc', 'desc'];
+
 const DB = {
   CONNECTION_STRING: 'DB_CONNECT_STRING',
 };
@@ -29,4 +31,5 @@ export const CONSTANTS = {
   regex,
   MESSAGES,
   LIMITS,
+  SORT_ORDER_LIST,
 };

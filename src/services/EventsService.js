@@ -2,8 +2,10 @@ import { CONSTANTS } from '../constants/constants.js';
 import { eventsModel } from '../db/models/eventsModel.js';
 import { HttpError } from '../helpers/HttpError.js';
 
-const getAllEvents = async () => {
-  const result = await eventsModel.find();
+const getAllEvents = async ({ page, perPage }) => {
+  const skip = (page - 1) * perPage;
+
+  const result = await eventsModel.find().skip(skip).limit(perPage);
 
   return result;
 };

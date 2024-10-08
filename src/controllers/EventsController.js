@@ -4,7 +4,9 @@ import { HttpError } from '../helpers/HttpError.js';
 import { EventsService } from '../services/eventsService.js';
 
 const getAllEvents = async (req, res, next) => {
-  const data = await EventsService.getAllEvents();
+  const { page, perPage } = req.query;
+
+  const data = await EventsService.getAllEvents({ page, perPage });
 
   res.json({
     status: 200,

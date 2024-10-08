@@ -1,28 +1,22 @@
-export const parsedNumber = (value, defaultValue) => {
-  if (typeof value !== 'string') {
-    return defaultValue;
-  }
-  const parsedValue = parseInt(value);
+export const parsedNumber = (v, d) => {
+  const checkChaining = {
+    v,
+    d,
+    isString() {
+      if (typeof this.v !== 'string') {
+        this.v = this.d;
+      }
+      return this;
+    },
+    parseToInteger() {
+      const parsedValue = parseInt(Math.ceil(this.v));
+      this.v = Number.isNaN(parsedValue) ? this.d : parsedValue;
+      return this;
+    },
+    getResult() {
+      return this.v.toString();
+    },
+  };
 
-  if (Number.isNaN(parsedValue)) {
-    return defaultValue;
-  }
-  console.log(Number.isInteger(value));
-  if (!Number.isInteger(value)) {
-    return Math.ceil(value);
-  }
-
-  return Number(value);
-};
-
-const isInteger = (v) => {
-  if (!Number.isInteger(v)) {
-    return Math.ceil(v);
-  }
-  return v;
-};
-
-const isNaN = (v) => {
-  if (Number.isNaN(v)) {
-  }
+  return checkChaining.isString().parseToInteger().getResult();
 };
