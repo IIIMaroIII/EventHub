@@ -4,18 +4,13 @@ import Decorators from '../decorators/Decorators.js';
 import isMongooseIdValid from '../middlewares/isMongooseIdValid.js';
 import { EventsController } from '../controllers/EventsController.js';
 import { validateQuery } from '../middlewares/validateQuery.js';
-import { eventsModel } from '../db/models/eventsModel.js';
 
 export const eventsRouter = Router();
 
 const { ctrlWrapper, validateBody } = Decorators;
 const { EventsSchemas } = JoiSchemas;
 
-eventsRouter.get(
-  '/',
-  validateQuery(eventsModel),
-  EventsController.getAllEvents,
-);
+eventsRouter.get('/', validateQuery, EventsController.getAllEvents);
 
 eventsRouter.get(
   '/:id',

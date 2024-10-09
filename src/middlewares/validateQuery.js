@@ -1,18 +1,20 @@
 import { parsedNumber } from '../utils/parsedNumber.js';
-import { parseSortBy } from '../utils/parsedSortBy.js';
-import { parseSortOrder } from '../utils/parsedSortOrder.js';
+import { parseSortBy } from '../utils/parseSortBy.js';
+import { parseSortOrder } from '../utils/parseSortOrder.js';
 
-export const validateQuery = (model) => (req, res, next) => {
-  const { page, perPage, sortBy = '_id', sortOrder = 'asc' } = req.query;
+export const validateQuery = async (req, res, next) => {
+  const { page, perPage, sortBy, sortOrder } = req.query;
 
   const parsedPage = parsedNumber(page, 1);
   const parsedPerPage = parsedNumber(perPage, 10);
 
-  const parsedSortBy = parseSortBy(sortBy, model);
-  const parsedSortOrder = parseSortOrder(sortOrder);
+  const parsedSortBy = await parseSortBy(sortBy);
+  const parsedSortOrder = await parseSortOrder(sortOrder);
 
   req.query.page = parsedPage;
   req.query.perPage = parsedPerPage;
+  req.query.sortBy = parsedSortBy;
+  req.query.sortOrder = parsedSortOrder;
 
   next();
 };

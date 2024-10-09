@@ -3,17 +3,19 @@ import cors from 'cors';
 
 import { env } from './utils/env.js';
 import { pinoHttp } from 'pino-http';
-import { CONSTANTS } from './constants/constants.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFound } from './middlewares/notFound.js';
 import { apiRouter } from './routers/apiRouter.js';
+import CONSTANTS from './constants/index.js';
 
-const PORT = env(CONSTANTS.SERVER.PORT);
+const { SERVER, PINO_HTTP_OPTIONS } = CONSTANTS;
+
+const PORT = env(SERVER.PORT);
 
 export const startServer = () => {
   const app = express();
 
-  app.use(pinoHttp(CONSTANTS.PINO_HTTP_OPTIONS));
+  app.use(pinoHttp(PINO_HTTP_OPTIONS));
   app.use(express.json());
   app.use(cors());
 

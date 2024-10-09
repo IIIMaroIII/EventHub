@@ -1,9 +1,9 @@
 import mongoose, { model, Schema } from 'mongoose';
-import { CONSTANTS } from '../../constants/constants.js';
 import { MongooseHooks } from './hooks/mongooseHooks.js';
+import { MESSAGES } from '../../constants/messages.js';
+import { regex } from '../../constants/regex.js';
 
-const { ERRORS } = CONSTANTS.MESSAGES;
-const { regex } = CONSTANTS;
+const { ERRORS } = MESSAGES;
 
 const eventSchema = new Schema(
   {

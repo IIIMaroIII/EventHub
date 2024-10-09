@@ -1,6 +1,8 @@
-import { CONSTANTS } from '../constants/constants.js';
+import CONSTANTS from '../constants/index.js';
 import { eventsModel } from '../db/models/eventsModel.js';
 import { HttpError } from '../helpers/HttpError.js';
+
+const { ERRORS } = CONSTANTS.MESSAGES;
 
 const getAllEvents = async ({ page, perPage }) => {
   const skip = (page - 1) * perPage;
@@ -20,10 +22,7 @@ const findEventById = async (eventId) => {
   const result = await eventsModel.findById(eventId);
 
   if (!result)
-    throw HttpError(
-      404,
-      `The event ${CONSTANTS.MESSAGES.ERRORS.NOT_FOUND_BY_ID} ${eventId}`,
-    );
+    throw HttpError(404, `The event ${ERRORS.NOT_FOUND_BY_ID} ${eventId}`);
 
   return result;
 };

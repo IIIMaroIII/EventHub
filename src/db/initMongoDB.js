@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
-import { CONSTANTS } from '../constants/constants.js';
 import { env } from '../utils/env.js';
+import CONSTANTS from '../constants/index.js';
+
+const { CONNECTION_STRING } = CONSTANTS.DB;
 
 export const initMongoDB = async () => {
   try {
-    const mongoDbConnectionString = env(CONSTANTS.DB.CONNECTION_STRING);
+    const mongoDbConnectionString = env(CONNECTION_STRING);
 
     await mongoose.connect(mongoDbConnectionString);
 

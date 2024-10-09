@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import { CONSTANTS } from '../constants/constants.js';
 import { validateMongooseIdInJoiSchema } from './validateMongooseIdInJoiSchema.js';
+import CONSTANTS from '../constants/index.js';
 
 const { ERRORS } = CONSTANTS.MESSAGES;
 const { EVENTS } = CONSTANTS.LIMITS;
