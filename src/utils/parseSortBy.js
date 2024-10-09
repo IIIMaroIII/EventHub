@@ -10,11 +10,11 @@ export const parseSortBy = async (sortBy) => {
 };
 
 /**
- * 1) Создать fn retrieveMongooseObj.js которая будет возвращать массив ключей
+ * 1) Создать fn retrieveMongooseObj.js которая будет возвращать массив ключей ✅
  *      с Mongoose Model
- * 2) Написать fn parseSortBy, которая будет получать массив
+ * 2) Написать fn parseSortBy, которая будет получать массив ✅
  *      ключей с retieveMongooseObj и проверять валидность переданного
  *      значения сортировки в эту функцию, и возвращать либо его либо значение по умолчанию
- * 3) Дописать validateQuery с помощью этих fn
+ * 3) Дописать validateQuery с помощью этих fn ✅
  * 4) Используя aggregate дописать getAllEvents controller and service
  */
