@@ -6,15 +6,12 @@ import { EventsService } from '../services/eventsService.js';
 const { SUCCESS, ERRORS } = CONSTANTS.MESSAGES;
 
 const getAllEvents = async (req, res, next) => {
-  const { page, perPage } = req.query;
-  console.log('req.query', req.query);
-
-  const data = await EventsService.getAllEvents({ page, perPage });
+  const result = await EventsService.getAllEvents(req.query);
 
   res.json({
     status: 200,
     message: `${SUCCESS.FETCHED} data `,
-    data,
+    result,
   });
 };
 

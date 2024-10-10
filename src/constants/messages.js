@@ -15,6 +15,7 @@ export const MESSAGES = {
     BASE: 'should be a type of',
     EMPTY: 'cannot be empty',
     DATE_ISO: 'must be in ISO format (YYYY-MM-DDTHH:mm:ss.sssZ)',
+    NOT_FOUND: 'We have not found anything according your request',
     NOT_FOUND_BY_ID: 'is not found by provided id',
     STRING: 'must be the type of string',
     NUMBER: 'must be the type of number',

@@ -10,7 +10,11 @@ export const eventsRouter = Router();
 const { ctrlWrapper, validateBody } = Decorators;
 const { EventsSchemas } = JoiSchemas;
 
-eventsRouter.get('/', validateQuery, EventsController.getAllEvents);
+eventsRouter.get(
+  '/',
+  validateQuery,
+  ctrlWrapper(EventsController.getAllEvents),
+);
 
 eventsRouter.get(
   '/:id',
