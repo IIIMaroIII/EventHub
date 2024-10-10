@@ -14,7 +14,7 @@ export const parsedNumber = (v, d) => {
       return this;
     },
     getResult() {
-      return this.v.toString();
+      return Number(this.v);
     },
   };
 
